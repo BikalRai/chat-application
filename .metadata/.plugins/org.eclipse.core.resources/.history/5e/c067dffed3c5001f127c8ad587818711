@@ -1,0 +1,8 @@
+package com.chatApp.user;
+
+public class UserRequestDto {
+	
+	private String email;
+	private String password;
+
+}

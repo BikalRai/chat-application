@@ -1,0 +1,12 @@
+spring.application.name=chat-application-backend
+
+# database configuration
+spring.datasource.url = jdbc:postgresql://localhost:5432/chatApp
+spring.datasource.username = postgres
+spring.datasource.password = 123456
+
+#jap configuration
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto = create-drop
+spring.jpa.show-sql= true
+spring.jpa.properties.format_sql = true
