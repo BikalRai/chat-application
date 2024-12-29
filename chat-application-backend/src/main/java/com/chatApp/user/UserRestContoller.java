@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,14 +27,32 @@ public class UserRestContoller {
 	}
 	
 	@PostMapping("/createUser")
-	public ResponseEntity<UserResponseDto> creteUser(@RequestBody UserRequestDto userReqDto) {
+	public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userReqDto) {
 		
 		User createdUser = userService.createUser(userReqDto);
 		
-		UserResponseDto res = new UserResponseDto(createdUser.getId(), createdUser.getEmail());
+		UserResponseDto res = new UserResponseDto(createdUser.getId(), createdUser.getEmail(), createdUser.getCreateAt());
 		
 		
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/users/{id}")
+	public ResponseEntity<UserResponseDto> getUserById(@PathVariable("id") int id) {
+		User user = userService.getUserById(id);
+		
+		UserResponseDto res = new UserResponseDto(user.getId(), user.getEmail(), user.getCreateAt());
+		return new ResponseEntity<>(res, HttpStatus.FOUND);
+	}
+	
+	@PutMapping("/users/{id}/update")
+	public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") int id, @RequestBody UserRequestDto userReqDto) {
+		
+		return new ResponseEntity<>(userService.updateUser(id, userReqDto), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/users/delete/{id}")
+	public ResponseEntity<String> deleteUserById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
+	}
 }
