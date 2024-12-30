@@ -1,0 +1,8 @@
+package com.chatApp.roles;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Role {
+	private String role;
+}

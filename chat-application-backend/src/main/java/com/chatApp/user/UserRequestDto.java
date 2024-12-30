@@ -8,7 +8,6 @@ public class UserRequestDto {
 	private String password;
 	private String username;
 	private String userImg;
-	private Roles role;
 	private Statuses status;
 	private LocalDate createAt;
 	private LocalDate lastSeen;
@@ -43,14 +42,6 @@ public class UserRequestDto {
 
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
-	}
-
-	public Roles getRole() {
-		return role;
-	}
-
-	public void setRole(Roles role) {
-		this.role = role;
 	}
 
 	public Statuses getStatus() {

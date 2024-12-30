@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.data-jpa=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.postgresql=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.web=1
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=chat-application-backend
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.bootVersion=3.4.1
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.description=Backend for chat application
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.groupId=com.example
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.javaVersion=17
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.language=java
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.name=chat-application-backend
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packageName=com.chatApp
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packaging=jar
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.type=MAVEN
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.version=v1
+org.springframework.ide.eclipse.boot.wizard.initializr.url=https\://start.spring.io\n

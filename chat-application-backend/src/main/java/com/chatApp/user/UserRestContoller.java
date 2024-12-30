@@ -17,40 +17,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class UserRestContoller {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/createUser")
 	public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userReqDto) {
-		
+
 		User createdUser = userService.createUser(userReqDto);
-		
-		UserResponseDto res = new UserResponseDto(createdUser.getId(), createdUser.getEmail(), createdUser.getCreateAt());
-		
-		
+
+		UserResponseDto res = new UserResponseDto(createdUser);
+
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/users/{id}")
 	public ResponseEntity<UserResponseDto> getUserById(@PathVariable("id") int id) {
 		User user = userService.getUserById(id);
-		
-		UserResponseDto res = new UserResponseDto(user.getId(), user.getEmail(), user.getCreateAt());
+
+		UserResponseDto res = new UserResponseDto(user);
 		return new ResponseEntity<>(res, HttpStatus.FOUND);
 	}
-	
+
 	@PutMapping("/users/{id}/update")
-	public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") int id, @RequestBody UserRequestDto userReqDto) {
-		
+	public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") int id,
+			@RequestBody UserRequestDto userReqDto) {
+
 		return new ResponseEntity<>(userService.updateUser(id, userReqDto), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/users/delete/{id}")
 	public ResponseEntity<String> deleteUserById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
