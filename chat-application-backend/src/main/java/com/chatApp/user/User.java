@@ -1,9 +1,12 @@
 package com.chatApp.user;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.chatApp.roles.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,24 +35,25 @@ public class User {
 	private String username;
 	private String password;
 	private String userImg;
-	
-	@Enumerated(EnumType.STRING)
-	private Roles role;
+
+	@ManyToMany
+	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_id") })
+	private List<Roles> role;
 
 	@Enumerated(EnumType.STRING)
 	private Statuses status;
-	
+
 	@CreationTimestamp
-	private LocalDateTime createAt;
+	private LocalDateTime createdAt;
 	private LocalDateTime lastSeen;
 
 	public User() {
 
 	}
 
-	public User(Integer id, String email, String username, String password, String userImg, Roles role, Statuses status,
-			LocalDateTime createAt, LocalDateTime lastSeen) {
-
+	public User(Integer id, String email, String username, String password, String userImg, List<Roles> role,
+			Statuses status, LocalDateTime createdAt, LocalDateTime lastSeen) {
 		Id = id;
 		this.email = email;
 		this.username = username;
@@ -54,7 +61,7 @@ public class User {
 		this.userImg = userImg;
 		this.role = role;
 		this.status = status;
-		this.createAt = createAt;
+		this.createdAt = createdAt;
 		this.lastSeen = lastSeen;
 	}
 
@@ -98,11 +105,11 @@ public class User {
 		this.userImg = userImg;
 	}
 
-	public Roles getRole() {
+	public List<Roles> getRole() {
 		return role;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(List<Roles> role) {
 		this.role = role;
 	}
 
@@ -114,12 +121,12 @@ public class User {
 		this.status = status;
 	}
 
-	public LocalDateTime getCreateAt() {
-		return createAt;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreateAt(LocalDateTime createAt) {
-		this.createAt = createAt;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public LocalDateTime getLastSeen() {
@@ -133,7 +140,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [Id=" + Id + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", userImg=" + userImg + ", role=" + role + ", status=" + status + ", createAt=" + createAt
+				+ ", userImg=" + userImg + ", role=" + role + ", status=" + status + ", createAt=" + createdAt
 				+ ", lastSeen=" + lastSeen + "]";
 	}
 
