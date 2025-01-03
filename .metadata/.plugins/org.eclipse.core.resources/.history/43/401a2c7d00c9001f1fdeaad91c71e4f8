@@ -1,0 +1,5 @@
+package com.chatApp.friend;
+
+public class FriendResponseDto {
+
+}

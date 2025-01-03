@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,6 +43,13 @@ public class UserRestContoller {
 
 		UserResponseDto res = new UserResponseDto(user);
 		return new ResponseEntity<>(res, HttpStatus.FOUND);
+	}
+	
+	// end point to search for users based on userId
+	@GetMapping("/users/search")
+	public ResponseEntity<User> searchUser(@RequestParam("searchParam") String param) {
+		
+		return ResponseEntity.ok(userService.searchUserByUserId(param));
 	}
 
 	@PutMapping("/users/{id}/update")
