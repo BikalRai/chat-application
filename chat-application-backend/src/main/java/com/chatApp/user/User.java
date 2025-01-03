@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.chatApp.friend.Friend;
 import com.chatApp.roles.Roles;
 
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +29,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
+
+	@Column(name = "user_id")
+	private String userId;
 
 	@Column(unique = true, nullable = false)
 	private String email;
@@ -41,6 +46,12 @@ public class User {
 			@JoinColumn(name = "role_id") })
 	private List<Roles> role;
 
+	@OneToMany(mappedBy = "user")
+	private List<Friend> friends;
+
+	@OneToMany(mappedBy = "friend")
+	private List<Friend> friendOf;
+
 	@Enumerated(EnumType.STRING)
 	private Statuses status;
 
@@ -52,14 +63,19 @@ public class User {
 
 	}
 
-	public User(Integer id, String email, String username, String password, String userImg, List<Roles> role,
-			Statuses status, LocalDateTime createdAt, LocalDateTime lastSeen) {
+	public User(Integer id, String userId, String email, String username, String password, String userImg,
+			List<Roles> role, List<Friend> friends, List<Friend> friendOf, Statuses status, LocalDateTime createdAt,
+			LocalDateTime lastSeen) {
+
 		Id = id;
+		this.userId = userId;
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.userImg = userImg;
 		this.role = role;
+		this.friends = friends;
+		this.friendOf = friendOf;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.lastSeen = lastSeen;
@@ -137,11 +153,28 @@ public class User {
 		this.lastSeen = lastSeen;
 	}
 
-	@Override
-	public String toString() {
-		return "User [Id=" + Id + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", userImg=" + userImg + ", role=" + role + ", status=" + status + ", createAt=" + createdAt
-				+ ", lastSeen=" + lastSeen + "]";
+	public List<Friend> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<Friend> friends) {
+		this.friends = friends;
+	}
+
+	public List<Friend> getFriendOf() {
+		return friendOf;
+	}
+
+	public void setFriendOf(List<Friend> friendOf) {
+		this.friendOf = friendOf;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }

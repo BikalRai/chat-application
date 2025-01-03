@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.chatApp.roles.Roles;
 import com.chatApp.roles.RolesRepository;
+import com.chatApp.utilities.HashIdGenerator;
 
 @Service
 public class UserService {
@@ -20,6 +21,9 @@ public class UserService {
 
 	@Autowired
 	private RolesRepository rolesRepo;
+	
+	@Autowired
+	private HashIdGenerator hashIdGenerator;
 
 	// create a new user
 	public User createUser(UserRequestDto userReqDto) {
@@ -34,6 +38,7 @@ public class UserService {
 
 		// add the all the new user details
 		user.setEmail(userReqDto.getEmail());
+		user.setUserId(hashIdGenerator.generatedHashId(user.getEmail()));
 		user.setPassword(userReqDto.getPassword());
 		user.setStatus(Statuses.ONLINE);
 
@@ -85,6 +90,12 @@ public class UserService {
 		UserResponseDto res = new UserResponseDto(updateUser);
 
 		return res;
+	}
+	
+	// search for users based on userId and not Id
+	public User searchUserByUserId(String userId) {
+		
+		return userRepo.findUserByUserId(userId);
 	}
 
 //	 delete user
